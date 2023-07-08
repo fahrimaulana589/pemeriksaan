@@ -24,9 +24,21 @@ class JadwalListScreen extends Screen
      */
     public function query(): iterable
     {
-        return [
+        $data = [
             'jadwals' => Jadwal::filters()->defaultSort('id', 'desc')->paginate(),
         ];
+
+        if(auth()->user()->inRole('admin')){
+            $data = [
+                'jadwals' => Jadwal::filters()->defaultSort('id', 'desc')->paginate(),
+            ];
+        }
+        if(auth()->user()->inRole('dokter')){
+            $data = [
+                'jadwals' => Jadwal::where('id','=',auth()->user()->dokter->id)->filters()->defaultSort('id', 'desc')->paginate(),
+            ];
+        }
+        return $data;
     }
 
     public function permission(): ?iterable

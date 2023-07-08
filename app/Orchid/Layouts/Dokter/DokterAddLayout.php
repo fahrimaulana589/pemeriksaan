@@ -2,9 +2,12 @@
 
 namespace App\Orchid\Layouts\Dokter;
 
+use App\Models\Obat;
+use App\Models\User;
 use Orchid\Screen\Field;
 use Orchid\Screen\Fields\DateTimer;
 use Orchid\Screen\Fields\Input;
+use Orchid\Screen\Fields\Relation;
 use Orchid\Screen\Fields\Select;
 use Orchid\Screen\Layouts\Rows;
 
@@ -25,6 +28,12 @@ class DokterAddLayout extends Rows
     protected function fields(): iterable
     {
         return [
+            Relation::make('user_id')
+                ->fromModel(User::class, 'name','id')
+                ->applyScope('dokters')
+                ->title('Pilih User')
+                ->help("Silahkan pilih user"),
+
             Input::make('nama')
                 ->type('text')
                 ->max(255)

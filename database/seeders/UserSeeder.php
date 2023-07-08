@@ -78,9 +78,9 @@ class UserSeeder extends Seeder
                 'platform.obat.edit' => 0,
                 'platform.obat.delete' => 0,
                 'platform.pemeriksaan.list'  => 1,
-                'platform.pemeriksaan.add' => 1,
+                'platform.pemeriksaan.add' => 0,
                 'platform.pemeriksaan.edit' => 1,
-                'platform.pemeriksaan.delete' => 1,
+                'platform.pemeriksaan.delete' => 0,
                 'platform.racikan.list' => 1,
                 'platform.racikan.add' => 1,
                 'platform.racikan.edit' => 1,
@@ -104,10 +104,25 @@ class UserSeeder extends Seeder
             'permissions' => $roles['dokter'],
         ];
 
+        $dokters = User::create($dokter);
+        $dokters->replaceRoles([2]);
+
+        foreach (range(1,11) as $data){
+            $dokter = [
+                'name' => 'dokter',
+                'email' => fake()->name.'@dokter.com',
+                'password' => Hash::make('dokter'),
+                'remember_token' => Str::random(10),
+                'permissions' => $roles['dokter'],
+            ];
+
+            $dokter = User::create($dokter);
+            $dokter->replaceRoles([2]);
+        }
+
         $admin = User::create($admin);
         $admin->replaceRoles([1]);
 
-        $dokter = User::create($dokter);
-        $dokter->replaceRoles([2]);
+
     }
 }

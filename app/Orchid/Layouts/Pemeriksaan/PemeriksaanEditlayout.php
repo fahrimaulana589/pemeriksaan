@@ -35,7 +35,8 @@ class PemeriksaanEditlayout extends Rows
             Relation::make('dokter_id')
                 ->fromModel(Dokter::class, 'nama','id')
                 ->title('Pilih Dokter')
-                ->help("Silahkan pilih dokter"),
+                ->help("Silahkan pilih dokter")
+                ->disabled(auth()->user()->inRole('dokter')),
 
             Input::make('keluhan')
                 ->type('text')

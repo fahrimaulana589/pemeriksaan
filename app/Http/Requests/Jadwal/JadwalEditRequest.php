@@ -17,10 +17,13 @@ class JadwalEditRequest extends FormRequest
         $sabtu = request()->request->get('sabtu');
         $minggu = request()->request->get('minggu');
 
+        $jadwal = request()->route('jadwal');
+
         return [
             'dokter_id' => [
                 'required',
                 'exists:dokter,id',
+                'unique:jadwals,dokter_id,'.$jadwal->dokter_id,
                 'int',
             ],
             'senin' => [

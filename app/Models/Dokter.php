@@ -16,6 +16,7 @@ class Dokter extends Model
     protected $table = 'dokter';
 
     protected $fillable = [
+        'user_id',
         'nama',
         'icon',
         'gender',
@@ -37,8 +38,15 @@ class Dokter extends Model
         return $this->hasMany(Pemeriksaan::class);
     }
 
+    public function user()
+    {
+        return $this->belongsTo(\Orchid\Platform\Models\User::class);
+    }
+
     protected function serializeDate(DateTimeInterface $date): string
     {
         return $date->format('Y-m-d H:i:s');
     }
+
+
 }

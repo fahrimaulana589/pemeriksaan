@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests\Dokter;
 
+use App\Models\Jadwal;
+use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -9,7 +11,21 @@ class DokterAddRequest extends FormRequest
 {
     public function rules(): array
     {
+        $users = User::dokters()->get();
+
+        $users_ids = $users->map(function ($user){
+            return $user->id;
+        })->flatten();
+
         return [
+
+            'user_id' => [
+                'numeric',
+                'required',
+                'unique:dokter,user_id',
+                Rule::in($users_ids)
+            ],
+
             'nama' => [
                 'required',
                 'regex:/^[a-zA-Z ]*$/'

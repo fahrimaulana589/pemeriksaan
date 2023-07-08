@@ -4,6 +4,7 @@ namespace App\Orchid\Screens\Pemeriksaan;
 
 use App\Http\Requests\Pasien\PasienDeleteRequest;
 use App\Http\Requests\Pemeriksaan\PemeriksaanDeleteRequest;
+use App\Models\Jadwal;
 use App\Models\Pasien;
 use App\Models\Pemeriksaan;
 use App\Orchid\Layouts\Pasien\PasienListLayout;
@@ -24,9 +25,23 @@ class PemeriksaanListScreen extends Screen
      */
     public function query(): iterable
     {
-        return [
+        $data = [
             'pemeriksaans' => Pemeriksaan::filters()->defaultSort('id', 'desc')->paginate(),
         ];
+
+        if(auth()->user()->inRole('admin')){
+            $data = [
+                'pemeriksaans' => Pemeriksaan::filters()->defaultSort('id', 'desc')->paginate(),
+            ];
+        }
+
+        if(auth()->user()->inRole('dokter')){
+            $data = [
+                'pemeriksaans' => Pemeriksaan::where('dokter_id','=',auth()->user()->dokter->id)->filters()->defaultSort('id', 'desc')->paginate(),
+            ];
+        }
+
+        return $data;
     }
 
     public function permission(): ?iterable

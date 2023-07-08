@@ -2,14 +2,31 @@
 
 namespace App\Http\Requests\Dokter;
 
+use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
 class DokterEditRequest extends FormRequest
 {
+
     public function rules(): array
     {
+        $users = User::dokters()->get();
+
+        $users_ids = $users->map(function ($user){
+            return $user->id;
+        })->flatten();
+
+        $dokter = request()->route('dokter');
+
         return [
+            'user_id' => [
+                'numeric',
+                'required',
+                'unique:dokter,user_id,'.$dokter->id,
+                Rule::in($users_ids)
+            ],
+
             'nama' => [
                 'required',
                 'regex:/^[a-zA-Z ]*$/'

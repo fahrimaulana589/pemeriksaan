@@ -2,13 +2,20 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Query\Builder;
+use Orchid\Filters\Filterable;
 use Orchid\Filters\Types\Like;
 use Orchid\Filters\Types\Where;
 use Orchid\Filters\Types\WhereDateStartEnd;
+use Orchid\Metrics\Chartable;
 use Orchid\Platform\Models\User as Authenticatable;
+use Orchid\Screen\AsSource;
 
 class User extends Authenticatable
 {
+    use Filterable, AsSource, Chartable, HasFactory;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -67,4 +74,14 @@ class User extends Authenticatable
         'updated_at',
         'created_at',
     ];
+
+    public function dokter()
+    {
+        return $this->hasOne(Dokter::class);
+    }
+
+    public function scopeDokters($query)
+    {
+        return $query->join('dokter','users.id','=','dokter.user_id');
+    }
 }

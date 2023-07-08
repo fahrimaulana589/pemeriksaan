@@ -25,10 +25,11 @@ class JadwalEditlayout extends Rows
      */
     protected function fields(): iterable
     {
-        return [
+       return [
             Relation::make('dokter_id')
                 ->fromModel(Dokter::class, 'nama','id')
                 ->title('Pilih Dokter')
+                ->disabled(auth()->user()->inRole('dokter'))
                 ->help("Silahkan pilih dokter"),
 
             Select::make('senin')
