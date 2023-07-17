@@ -22,7 +22,7 @@ class PemeriksaanAddRequestTest extends TestCase
             'pasien_id' => $pasien->id,
             'dokter_id' => $dokter->id,
             'keluhan' => 'sakit perut',
-            'hari' => Carbon::now()
+            'hari' => Carbon::now()->addDays(5)
         ];
 
         $request = Request::create('/', 'POST', $data);
@@ -166,7 +166,7 @@ class PemeriksaanAddRequestTest extends TestCase
         $dokter = Dokter::factory(1)->create()->first();
 
         $data = [
-            'pasien_id' => $dokter->id,
+            'pasien_id' => $pasien->id,
             'dokter_id' => 'ahs',
             'keluhan' => 'sakit perut',
             'hari' => Carbon::now()

@@ -39,11 +39,13 @@ class JadwalEditRequestTest extends TestCase
             "end_minggu" => '14:06'
         ];
 
-        $request = Request::create('/', 'POST', $data);
+        $request = Request::create('/admin/jadwals/1/edit/', 'POST', $data);
 
-        $validasi = new JadwalEditRequest();
+        app()->handle($request);
 
-        $request->validate($validasi->rules());
+        $validasi = app()->make(JadwalEditRequest::class);
+
+        $validasi->validated();
 
         $this->assertTrue(true);
     }
@@ -77,13 +79,13 @@ class JadwalEditRequestTest extends TestCase
             "end_minggu" => '14:06'
         ];
 
-        $request = Request::create('/', 'POST', $data);
+        $request = Request::create('/admin/jadwals/1/edit/', 'POST', $data);
 
-        $validasi = new JadwalEditRequest();
+        app()->handle($request);
 
-        $request->validate($validasi->rules());
+        $validasi = app()->make(JadwalEditRequest::class);
 
-        $this->assertTrue(true);
+        $validasi->validated();
     }
 
     function test_hari_ditak_ada_validasi_harus_gagal(){
@@ -116,11 +118,13 @@ class JadwalEditRequestTest extends TestCase
             "end_minggu" => '14:06'
         ];
 
-        $request = Request::create('/', 'POST', $data);
+        $request = Request::create('/admin/jadwals/1/edit/', 'POST', $data);
 
-        $validasi = new JadwalEditRequest();
+        app()->handle($request);
 
-        $request->validate($validasi->rules());
+        $validasi = app()->make(JadwalEditRequest::class);
+
+        $validasi->validated();
 
         $this->assertTrue(true);
     }
@@ -156,11 +160,13 @@ class JadwalEditRequestTest extends TestCase
             "end_minggu" => '14:06'
         ];
 
-        $request = Request::create('/', 'POST', $data);
+        $request = Request::create('/admin/jadwals/1/edit/', 'POST', $data);
 
-        $validasi = new JadwalEditRequest();
+        app()->handle($request);
 
-        $request->validate($validasi->rules());
+        $validasi = app()->make(JadwalEditRequest::class);
+
+        $validasi->validated();
 
         $this->assertTrue(true);
     }
@@ -196,11 +202,13 @@ class JadwalEditRequestTest extends TestCase
             "end_minggu" => '14:06'
         ];
 
-        $request = Request::create('/', 'POST', $data);
+        $request = Request::create('/admin/jadwals/1/edit/', 'POST', $data);
 
-        $validasi = new JadwalEditRequest();
+        app()->handle($request);
 
-        $request->validate($validasi->rules());
+        $validasi = app()->make(JadwalEditRequest::class);
+
+        $validasi->validated();
 
         $this->assertTrue(true);
     }
@@ -236,11 +244,13 @@ class JadwalEditRequestTest extends TestCase
             "end_minggu" => '14:06'
         ];
 
-        $request = Request::create('/', 'POST', $data);
+        $request = Request::create('/admin/jadwals/1/edit/', 'POST', $data);
 
-        $validasi = new JadwalEditRequest();
+        app()->handle($request);
 
-        $request->validate($validasi->rules());
+        $validasi = app()->make(JadwalEditRequest::class);
+
+        $validasi->validated();
 
         $this->assertTrue(true);
     }
@@ -275,13 +285,13 @@ class JadwalEditRequestTest extends TestCase
             "end_minggu" => '14:06'
         ];
 
-        $request = Request::create('/', 'POST', $data);
+        $request = Request::create('/admin/jadwals/1/edit/', 'POST', $data);
 
-        request()->request = $request;
+        app()->handle($request);
 
-        $validasi = new JadwalEditRequest();
+        $validasi = app()->make(JadwalEditRequest::class);
 
-        $request->validate($validasi->rules());
+        $validasi->validated();
 
         $this->assertTrue(true);
     }

@@ -33,11 +33,13 @@ class RacikanAddRequestTest extends TestCase
 
         $data = [
             'obat_id' => $obat->id,
-            'pemeriksaan_id' => $dokter->id,
+            'pemeriksaan_id' => $pemeriksaan->id,
             'jumlah' => '12',
         ];
 
         $request = Request::create('/', 'POST', $data);
+
+        app()->handle($request);
 
         $validasi = new RacikanAddRequest();
 
@@ -70,6 +72,8 @@ class RacikanAddRequestTest extends TestCase
         ];
 
         $request = Request::create('/', 'POST', $data);
+
+        app()->handle($request);
 
         $validasi = new RacikanAddRequest();
 
@@ -104,6 +108,8 @@ class RacikanAddRequestTest extends TestCase
 
         $request = Request::create('/', 'POST', $data);
 
+        app()->handle($request);
+
         $validasi = new RacikanAddRequest();
 
         $request->validate($validasi->rules());
@@ -136,6 +142,8 @@ class RacikanAddRequestTest extends TestCase
         ];
 
         $request = Request::create('/', 'POST', $data);
+
+        app()->handle($request);
 
         $validasi = new RacikanAddRequest();
 
@@ -170,6 +178,8 @@ class RacikanAddRequestTest extends TestCase
 
         $request = Request::create('/', 'POST', $data);
 
+        app()->handle($request);
+
         $validasi = new RacikanAddRequest();
 
         $request->validate($validasi->rules());
@@ -201,6 +211,8 @@ class RacikanAddRequestTest extends TestCase
         ];
 
         $request = Request::create('/', 'POST', $data);
+
+        app()->handle($request);
 
         $validasi = new RacikanAddRequest();
 
@@ -235,6 +247,8 @@ class RacikanAddRequestTest extends TestCase
 
         $request = Request::create('/', 'POST', $data);
 
+        app()->handle($request);
+
         $validasi = new RacikanAddRequest();
 
         $request->validate($validasi->rules());
@@ -268,6 +282,8 @@ class RacikanAddRequestTest extends TestCase
 
         $request = Request::create('/', 'POST', $data);
 
+        app()->handle($request);
+
         $validasi = new RacikanAddRequest();
 
         $request->validate($validasi->rules());
@@ -300,6 +316,8 @@ class RacikanAddRequestTest extends TestCase
         ];
 
         $request = Request::create('/', 'POST', $data);
+
+        app()->handle($request);
 
         $validasi = new RacikanAddRequest();
 
@@ -336,6 +354,8 @@ class RacikanAddRequestTest extends TestCase
 
         $request = Request::create('/', 'POST', $data);
 
+        app()->handle($request);
+
         $validasi = new RacikanAddRequest();
 
         $request->validate($validasi->rules());
@@ -369,6 +389,8 @@ class RacikanAddRequestTest extends TestCase
 
         $request = Request::create('/', 'POST', $data);
 
+        app()->handle($request);
+
         $validasi = new RacikanAddRequest();
 
         $request->validate($validasi->rules());
@@ -401,6 +423,8 @@ class RacikanAddRequestTest extends TestCase
         ];
 
         $request = Request::create('/', 'POST', $data);
+
+        app()->handle($request);
 
         $validasi = new RacikanAddRequest();
 
@@ -436,7 +460,7 @@ class RacikanAddRequestTest extends TestCase
 
         $request = Request::create('/', 'POST', $data);
 
-        request()->request = $request;
+        app()->handle($request);
 
         $validasi = new RacikanAddRequest();
 

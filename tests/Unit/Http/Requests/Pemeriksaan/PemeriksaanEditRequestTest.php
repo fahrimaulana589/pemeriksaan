@@ -23,7 +23,7 @@ class PemeriksaanEditRequestTest extends TestCase
             'pasien_id' => $pasien->id,
             'dokter_id' => $dokter->id,
             'keluhan' => 'sakit perut',
-            'hari' => Carbon::now()
+            'hari' => Carbon::now()->addDays(6)
         ];
 
         $request = Request::create('/', 'POST', $data);
@@ -164,10 +164,9 @@ class PemeriksaanEditRequestTest extends TestCase
         $this->expectExceptionMessage('The dokter id field must be an integer.');
 
         $pasien = Pasien::factory(1)->create()->first();
-        $dokter = Dokter::factory(1)->create()->first();
 
         $data = [
-            'pasien_id' => $dokter->id,
+            'pasien_id' => $pasien->id,
             'dokter_id' => 'ahs',
             'keluhan' => 'sakit perut',
             'hari' => Carbon::now()

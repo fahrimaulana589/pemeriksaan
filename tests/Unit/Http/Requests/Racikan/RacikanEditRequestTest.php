@@ -33,11 +33,13 @@ class RacikanEditRequestTest extends TestCase
 
         $data = [
             'obat_id' => $obat->id,
-            'pemeriksaan_id' => $dokter->id,
+            'pemeriksaan_id' => $pemeriksaan->id,
             'jumlah' => '12',
         ];
 
-        $request = Request::create('/', 'POST', $data);
+        $request = Request::create('/admin/pemeriksaans/'.$pemeriksaan->id.'/racikans/1/edit', 'POST', $data);
+
+        app()->handle($request);
 
         $validasi = new RacikanEditRequest();
 
@@ -69,7 +71,9 @@ class RacikanEditRequestTest extends TestCase
             'jumlah' => '12',
         ];
 
-        $request = Request::create('/', 'POST', $data);
+        $request = Request::create('/admin/pemeriksaans/'.$pemeriksaan->id.'/racikans/1/edit', 'POST', $data);
+
+        app()->handle($request);
 
         $validasi = new RacikanEditRequest();
 
@@ -102,7 +106,9 @@ class RacikanEditRequestTest extends TestCase
             'jumlah' => '12',
         ];
 
-        $request = Request::create('/', 'POST', $data);
+        $request = Request::create('/admin/pemeriksaans/'.$pemeriksaan->id.'/racikans/1/edit', 'POST', $data);
+
+        app()->handle($request);
 
         $validasi = new RacikanEditRequest();
 
@@ -135,7 +141,9 @@ class RacikanEditRequestTest extends TestCase
             'jumlah' => '12',
         ];
 
-        $request = Request::create('/', 'POST', $data);
+        $request = Request::create('/admin/pemeriksaans/'.$pemeriksaan->id.'/racikans/1/edit', 'POST', $data);
+
+        app()->handle($request);
 
         $validasi = new RacikanEditRequest();
 
@@ -168,7 +176,9 @@ class RacikanEditRequestTest extends TestCase
             'jumlah' => '12',
         ];
 
-        $request = Request::create('/', 'POST', $data);
+        $request = Request::create('/admin/pemeriksaans/'.$pemeriksaan->id.'/racikans/1/edit', 'POST', $data);
+
+        app()->handle($request);
 
         $validasi = new RacikanEditRequest();
 
@@ -200,7 +210,9 @@ class RacikanEditRequestTest extends TestCase
             'jumlah' => '12',
         ];
 
-        $request = Request::create('/', 'POST', $data);
+        $request = Request::create('/admin/pemeriksaans/'.$pemeriksaan->id.'/racikans/1/edit', 'POST', $data);
+
+        app()->handle($request);
 
         $validasi = new RacikanEditRequest();
 
@@ -233,8 +245,9 @@ class RacikanEditRequestTest extends TestCase
             'jumlah' => '12',
         ];
 
-        $request = Request::create('/', 'POST', $data);
+        $request = Request::create('/admin/pemeriksaans/'.$pemeriksaan->id.'/racikans/1/edit', 'POST', $data);
 
+        app()->handle($request);
         $validasi = new RacikanEditRequest();
 
         $request->validate($validasi->rules());
@@ -266,7 +279,9 @@ class RacikanEditRequestTest extends TestCase
             'jumlah' => '12',
         ];
 
-        $request = Request::create('/', 'POST', $data);
+        $request = Request::create('/admin/pemeriksaans/'.$pemeriksaan->id.'/racikans/1/edit', 'POST', $data);
+
+        app()->handle($request);
 
         $validasi = new RacikanEditRequest();
 
@@ -299,7 +314,9 @@ class RacikanEditRequestTest extends TestCase
             'jumlah' => '12',
         ];
 
-        $request = Request::create('/', 'POST', $data);
+        $request = Request::create('/admin/pemeriksaans/'.$pemeriksaan->id.'/racikans/1/edit', 'POST', $data);
+
+        app()->handle($request);
 
         $validasi = new RacikanEditRequest();
 
@@ -334,7 +351,9 @@ class RacikanEditRequestTest extends TestCase
             'pemeriksaan_id' => $pemeriksaan->id,
         ];
 
-        $request = Request::create('/', 'POST', $data);
+        $request = Request::create('/admin/pemeriksaans/'.$pemeriksaan->id.'/racikans/1/edit', 'POST', $data);
+
+        app()->handle($request);
 
         $validasi = new RacikanEditRequest();
 
@@ -367,7 +386,9 @@ class RacikanEditRequestTest extends TestCase
             'jumlah' => '',
         ];
 
-        $request = Request::create('/', 'POST', $data);
+        $request = Request::create('/admin/pemeriksaans/'.$pemeriksaan->id.'/racikans/1/edit', 'POST', $data);
+
+        app()->handle($request);
 
         $validasi = new RacikanEditRequest();
 
@@ -400,7 +421,9 @@ class RacikanEditRequestTest extends TestCase
             'jumlah' => 'asas',
         ];
 
-        $request = Request::create('/', 'POST', $data);
+        $request = Request::create('/admin/pemeriksaans/'.$pemeriksaan->id.'/racikans/1/edit', 'POST', $data);
+
+        app()->handle($request);
 
         $validasi = new RacikanEditRequest();
 
@@ -433,9 +456,9 @@ class RacikanEditRequestTest extends TestCase
             'jumlah' => '1212',
         ];
 
-        $request = Request::create('/', 'POST', $data);
+        $request = Request::create('/admin/pemeriksaans/'.$pemeriksaan->id.'/racikans/1/edit', 'POST', $data);
 
-        request()->request = $request;
+        app()->handle($request);
 
         $validasi = new RacikanEditRequest();
 

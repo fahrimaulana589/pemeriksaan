@@ -17,13 +17,11 @@ class DokterEditRequest extends FormRequest
             return $user->id;
         })->flatten();
 
-        $dokter = request()->route('dokter');
-
         return [
             'user_id' => [
                 'numeric',
                 'required',
-                'unique:dokter,user_id,'.$dokter->id,
+                'unique:dokter,user_id,'.$this->getId(),
                 Rule::in($users_ids)
             ],
 
@@ -71,5 +69,11 @@ class DokterEditRequest extends FormRequest
     public function authorize(): bool
     {
         return true;
+    }
+
+    public function getId(){
+        $dokter = request()->route()->originalParameter('dokter');
+
+        return $dokter;
     }
 }

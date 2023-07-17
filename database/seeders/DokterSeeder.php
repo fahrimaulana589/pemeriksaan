@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Dokter;
 use App\Models\Jadwal;
+use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -14,10 +15,15 @@ class DokterSeeder extends Seeder
      */
     public function run(): void
     {
+        $users = User::dokters()->get();
 
-        foreach (range(1,12) as $item) {
-            $dokters = Dokter::factory(1)->create([
-                'user_id' => $item
+        $users_ids = $users->map(function ($user){
+            return $user->id;
+        })->flatten();
+
+        foreach (range(1,13) as $item) {
+            Dokter::factory(1)->create([
+                'user_id' => $users_ids[$item-1]
             ]);
         }
 

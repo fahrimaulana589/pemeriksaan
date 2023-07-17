@@ -10,7 +10,7 @@ class RacikanAddRequest extends FormRequest
     public function rules(): array
     {
         $obat_id = request()->request->get('obat_id');
-        $stok = Obat::find($obat_id)->stok;
+        $stok = Obat::find($obat_id) != null ? Obat::find($obat_id)->stok : 0;
 
         return [
             'obat_id' => [

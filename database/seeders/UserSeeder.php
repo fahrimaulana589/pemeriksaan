@@ -6,6 +6,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use Orchid\Platform\Models\Role;
 use Orchid\Platform\Models\User;
 
 class UserSeeder extends Seeder
@@ -88,6 +89,9 @@ class UserSeeder extends Seeder
             ],
         ];
 
+        $roleAdmin = Role::first()->id;
+        $roleDokter = Role::all()->last()->id;
+
         $admin = [
             'name' => 'admin',
             'email' => 'admin@admin.com',
@@ -105,9 +109,9 @@ class UserSeeder extends Seeder
         ];
 
         $dokters = User::create($dokter);
-        $dokters->replaceRoles([2]);
+        $dokters->replaceRoles([$roleDokter]);
 
-        foreach (range(1,11) as $data){
+        foreach (range(1,12) as $data){
             $dokter = [
                 'name' => 'dokter',
                 'email' => fake()->name.'@dokter.com',
@@ -117,12 +121,11 @@ class UserSeeder extends Seeder
             ];
 
             $dokter = User::create($dokter);
-            $dokter->replaceRoles([2]);
+            $dokter->replaceRoles([$roleDokter]);
         }
 
         $admin = User::create($admin);
-        $admin->replaceRoles([1]);
-
+        $admin->replaceRoles([$roleAdmin]);
 
     }
 }

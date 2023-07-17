@@ -26,6 +26,7 @@ class DokterServiceTest extends TestCase
         $file = UploadedFile::fake()->image('avatar.jpg');
 
         $data = [
+            'user_id' => 1,
             'nama' => 'fahri',
             'gender' => 'pria',
             'harlah' => fake()->date,
@@ -58,6 +59,7 @@ class DokterServiceTest extends TestCase
         $this->expectExceptionMessage('Data truncated');
 
         $data = [
+            'user_id' => 1,
             'nama' => 'fahri',
             'gender' => 'bencong',
             'harlah' => fake()->date,
@@ -85,11 +87,12 @@ class DokterServiceTest extends TestCase
     {
         $this->expectException(QueryException::class);
 
-        $this->expectExceptionMessage('Data truncated');
+        $this->expectExceptionMessage('Invalid datetime format');
 
         $data = [
+            'user_id' => 1,
             'nama' => 'fahri',
-            'gender' => 'bencong',
+            'gender' => 'pria',
             'harlah' => 's',
             'desa' => 'Karangmangu',
             'kecamatan' => 'Tarub',
@@ -111,7 +114,43 @@ class DokterServiceTest extends TestCase
 
     }
 
-    function test_ambil_semua_data_harus_sukses(){
+    function test_create_dokter_dengan_user_id_sudah_ada_harus_gagal()
+    {
+        $this->expectException(QueryException::class);
+
+        $this->expectExceptionMessage('Duplicate entry');
+
+        Dokter::factory()->create([
+            'user_id' => 1
+        ]);
+
+        $data = [
+            'user_id' => 1,
+            'nama' => 'fahri',
+            'gender' => 'pria',
+            'harlah' => fake()->date,
+            'desa' => 'Karangmangu',
+            'kecamatan' => 'Tarub',
+            'kabupaten_kota' => 'Kabupaten Tegal',
+            'pendidikan' => "SMA",
+            'keahlian' => 'dokter bedah'
+        ];
+
+        $file = UploadedFile::fake()->image('avatar.jpg');
+
+        $request = Request::create('/', 'POST', $data, files: [
+            'file' => $file,
+        ]);
+
+        request()->request = $request;
+
+        $service = new DokterService();
+        $service->create($data);
+
+    }
+
+    function test_ambil_semua_data_harus_sukses()
+    {
 
         Dokter::factory(5)->create();
 
@@ -125,7 +164,8 @@ class DokterServiceTest extends TestCase
 
     }
 
-    function test_ambil_data_dengan_id_harus_sukses(){
+    function test_ambil_data_dengan_id_harus_sukses()
+    {
         $data = Dokter::factory(5)->create()->first();
 
         $id = $data->id;
@@ -134,10 +174,11 @@ class DokterServiceTest extends TestCase
 
         $item = $service->find($id);
 
-        $this->assertDatabaseHas('dokter',$item->toArray());
+        $this->assertDatabaseHas('dokter', $item->toArray());
     }
 
-    function test_ambil_data_dengan_id_tidak_ada_harus_gagal(){
+    function test_ambil_data_dengan_id_tidak_ada_harus_gagal()
+    {
         $this->expectException(ModelNotFoundException::class);
 
         $id = Dokter::factory(5)->create()->first()->id;
@@ -148,12 +189,14 @@ class DokterServiceTest extends TestCase
 
     }
 
-    function test_update_data_harus_sukses(){
+    function test_update_data_harus_sukses()
+    {
         $item_1 = Dokter::factory(1)->create()->first();
 
         $file = UploadedFile::fake()->image('avatar.jpg');
 
         $data = [
+            'user_id' => 1,
             'nama' => 'fahri',
             'gender' => 'pria',
             'harlah' => fake()->date,
@@ -172,7 +215,7 @@ class DokterServiceTest extends TestCase
 
         $service = new DokterService();
 
-        $service->update($item_1->id,$data);
+        $service->update($item_1->id, $data);
 
         $item_2 = $service->find($item_1->id);
 
@@ -182,16 +225,18 @@ class DokterServiceTest extends TestCase
 
         $this->assertTrue($files == 1);
 
-        $this->assertDatabaseHas('dokter',$data);
+        $this->assertDatabaseHas('dokter', $data);
 
     }
 
-    function test_update_data_dengan_id_tidak_ada_harus_gagal(){
+    function test_update_data_dengan_id_tidak_ada_harus_gagal()
+    {
         $this->expectException(ModelNotFoundException::class);
 
         $file = UploadedFile::fake()->image('avatar.jpg');
 
         $data = [
+            'user_id' => 1,
             'nama' => 'fahri',
             'gender' => 'pria',
             'harlah' => fake()->date,
@@ -210,11 +255,12 @@ class DokterServiceTest extends TestCase
 
         $service = new DokterService();
 
-        $service->update(1333,$data);
+        $service->update(1333, $data);
 
     }
 
-    function test_hapus_data_harus_sukses(){
+    function test_hapus_data_harus_sukses()
+    {
 
         $item_1 = Dokter::factory(1)->create()->first();
 
@@ -226,11 +272,12 @@ class DokterServiceTest extends TestCase
 
         $this->assertTrue($files == 0);
 
-        $this->assertDatabaseMissing('dokter',$item_1->toArray());
+        $this->assertDatabaseMissing('dokter', $item_1->toArray());
 
     }
 
-    function test_hapus_data_dengan_id_tidak_ada_harus_gagal(){
+    function test_hapus_data_dengan_id_tidak_ada_harus_gagal()
+    {
         $this->expectException(ModelNotFoundException::class);
 
         $item_1 = Dokter::factory(1)->create()->first();
@@ -244,7 +291,8 @@ class DokterServiceTest extends TestCase
         $this->assertTrue($files == 1);
     }
 
-    function test_hapus_data_dengan_id_memiliki_jadwal_ada_harus_gagal(){
+    function test_hapus_data_dengan_id_memiliki_jadwal_ada_harus_gagal()
+    {
         $this->expectException(QueryException::class);
         $this->expectExceptionMessage('Cannot delete or update a parent');
 
@@ -259,7 +307,8 @@ class DokterServiceTest extends TestCase
         $service->delete($item_1->id);
     }
 
-    function test_hapus_data_dengan_id_memiliki_pemeriksaan_ada_harus_gagal(){
+    function test_hapus_data_dengan_id_memiliki_pemeriksaan_ada_harus_gagal()
+    {
         $this->expectException(QueryException::class);
 
         $obat = Obat::factory(1)->create()->first();

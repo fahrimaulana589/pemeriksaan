@@ -13,6 +13,7 @@ class   DokterFactory extends Factory
     public function definition(): array
     {
         return [
+            'user_id' => $this->faker->numerify('#######'),
             'nama' => $this->faker->name(),
             'icon' => UploadedFile::fake()->image('default.jpg')->store('files'),
             'gender' => $this->faker->randomElement(["pria","wanita"]),

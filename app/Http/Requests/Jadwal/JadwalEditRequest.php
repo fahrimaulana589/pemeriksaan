@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Jadwal;
 
+use App\Models\Jadwal;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -17,13 +18,16 @@ class JadwalEditRequest extends FormRequest
         $sabtu = request()->request->get('sabtu');
         $minggu = request()->request->get('minggu');
 
-        $jadwal = request()->route('jadwal');
+        $jadwal = request()->route()->originalParameter('jadwal');
+
+        $jadwal = Jadwal::find($jadwal);
+        $jadwal = ($jadwal == null) ? null : $jadwal;
 
         return [
             'dokter_id' => [
                 'required',
                 'exists:dokter,id',
-                'unique:jadwals,dokter_id,'.$jadwal->dokter_id,
+                'unique:jadwals,dokter_id,'.$jadwal,
                 'int',
             ],
             'senin' => [

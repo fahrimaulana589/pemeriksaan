@@ -9,6 +9,7 @@ use Orchid\Filters\Types\Like;
 use Orchid\Filters\Types\Where;
 use Orchid\Filters\Types\WhereDateStartEnd;
 use Orchid\Metrics\Chartable;
+use Orchid\Platform\Models\Role;
 use Orchid\Platform\Models\User as Authenticatable;
 use Orchid\Screen\AsSource;
 
@@ -82,6 +83,7 @@ class User extends Authenticatable
 
     public function scopeDokters($query)
     {
-        return $query->join('dokter','users.id','=','dokter.user_id');
+        $idDokter = Role::all()->last()->id;
+        return $query->join('role_users','users.id','=','role_users.user_id')->where('role_users.role_id','=',$idDokter);
     }
 }
