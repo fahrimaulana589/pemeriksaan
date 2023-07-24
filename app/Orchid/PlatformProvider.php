@@ -93,6 +93,25 @@ class PlatformProvider extends OrchidServiceProvider
                     ->permission('platform.pemeriksaan.list')
             ),
 
+            Menu::make('Pelaporan')
+                ->icon('bs.list-check')
+                ->list([
+                    Menu::make(__('Pelaporan Perhari'))
+                        ->icon('')
+                        ->route('platform.pelaporan.pemeriksaan')
+                        ->permission('platform.pelaporan.pemeriksaan'),
+
+                    Menu::make(__('Pelaporan Perbulan'))
+                        ->icon('')
+                        ->route('platform.pelaporan.pemeriksaan.perbulan')
+                        ->permission('platform.pelaporan.pemeriksaan'),
+
+                    Menu::make(__('Pelaporan Pertahun'))
+                        ->icon('')
+                        ->route('platform.pelaporan.pemeriksaan.pertahun')
+                        ->permission('platform.pelaporan.pemeriksaan'),
+                ]),
+
             Menu::make(__(''))
                 ->title(__('Access Controls'))
                 ->permission(['platform.systems.users', 'platform.systems.roles']),
@@ -135,6 +154,8 @@ class PlatformProvider extends OrchidServiceProvider
                 ->addPermission('platform.jadwal.add', __('Add'))
                 ->addPermission('platform.jadwal.edit', __('Edit'))
                 ->addPermission('platform.jadwal.delete', __('Delete')),
+            ItemPermission::group(__('Pelaporan'))
+                ->addPermission('platform.pelaporan.pemeriksaan', __('Pemeriksaan')),
             ItemPermission::group(__('Obat'))
                 ->addPermission('platform.obat.list', __('List'))
                 ->addPermission('platform.obat.add', __('Add'))

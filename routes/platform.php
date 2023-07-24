@@ -15,6 +15,9 @@ use App\Orchid\Screens\Obat\ObatListScreen;
 use App\Orchid\Screens\Pasien\PasienAddScreen;
 use App\Orchid\Screens\Pasien\PasienEditScreen;
 use App\Orchid\Screens\Pasien\PasienListScreen;
+use App\Orchid\Screens\PelaporanPemeriksaanPerbulanScreen;
+use App\Orchid\Screens\PelaporanPemeriksaanPertahunScreen;
+use App\Orchid\Screens\PelaporanPemeriksaanScreen;
 use App\Orchid\Screens\Pemeriksaan\PemeriksaanAddScreen;
 use App\Orchid\Screens\Pemeriksaan\PemeriksaanEditScreen;
 use App\Orchid\Screens\Pemeriksaan\PemeriksaanJadwalScreen;
@@ -233,3 +236,24 @@ Route::screen('pemeriksaans/{pemeriksaan}/racikans/{racikan}/edit', RacikanEditS
     ->breadcrumbs(fn (Trail $trail,$pemeriksaan,$racikan) => $trail
         ->parent('platform.racikans',$pemeriksaan)
         ->push(__('Edit Racikan'), route('platform.racikans.edit',[$pemeriksaan,$racikan])));
+
+// Platform > Racikan
+Route::screen('pelaporan/pemeriksaan/perhari', PelaporanPemeriksaanScreen::class)
+    ->name('platform.pelaporan.pemeriksaan')
+    ->breadcrumbs(fn (Trail $trail) => $trail
+        ->parent('platform.index')
+        ->push(__('Laporan'), route('platform.pelaporan.pemeriksaan')));
+
+// Platform > Racikan
+Route::screen('pelaporan/pemeriksaan/perbulan', PelaporanPemeriksaanPerbulanScreen::class)
+    ->name('platform.pelaporan.pemeriksaan.perbulan')
+    ->breadcrumbs(fn (Trail $trail) => $trail
+        ->parent('platform.index')
+        ->push(__('Laporan'), route('platform.pelaporan.pemeriksaan.perbulan')));
+
+// Platform > Racikan
+Route::screen('pelaporan/pemeriksaan/pertahun', PelaporanPemeriksaanPertahunScreen::class)
+    ->name('platform.pelaporan.pemeriksaan.pertahun')
+    ->breadcrumbs(fn (Trail $trail) => $trail
+        ->parent('platform.index')
+        ->push(__('Laporan'), route('platform.pelaporan.pemeriksaan.perbulan')));
