@@ -8,6 +8,7 @@ use Orchid\Screen\Field;
 use Orchid\Screen\Fields\DateTimer;
 use Orchid\Screen\Fields\Input;
 use Orchid\Screen\Fields\Relation;
+use Orchid\Screen\Fields\Select;
 use Orchid\Screen\Layouts\Rows;
 
 class PemeriksaanEditlayout extends Rows
@@ -30,13 +31,23 @@ class PemeriksaanEditlayout extends Rows
             Relation::make('pasien_id')
                 ->fromModel(Pasien::class, 'nama','id')
                 ->title('Pilih Pasien')
-                ->help("Silahkan pilih pasien"),
+                ->help("Silahkan pilih pasien")
+                ->disabled(auth()->user()->inRole('dokter')),
 
             Relation::make('dokter_id')
                 ->fromModel(Dokter::class, 'nama','id')
                 ->title('Pilih Dokter')
                 ->help("Silahkan pilih dokter")
                 ->disabled(auth()->user()->inRole('dokter')),
+
+            Select::make('status')
+                ->title('Pilih Status')
+                ->options([
+                    'antrian'   => 'Antrian',
+                    'proses' => 'Proses',
+                    'selesai' => 'Selesai',
+                    'batal' => 'Batal',
+                ]),
 
             Input::make('keluhan')
                 ->type('text')

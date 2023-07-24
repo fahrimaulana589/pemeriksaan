@@ -44,12 +44,9 @@ class PemeriksaanListlayout extends Table
 
             TD::make('keluhan', __('Keluhan')),
 
-            TD::make('pasien_id', __('Pasien'))
-                ->render(function (Pemeriksaan $pemeriksaan) {
-                    return $pemeriksaan->pasien->nama;
-                }),
+            TD::make('status', __('Pasien')),
 
-            TD::make('hari', __('Hari PemeriksaanSeeder')),
+            TD::make('hari', __('Hari Pemeriksaan')),
 
             TD::make(__('Actions'))
                 ->align(TD::ALIGN_CENTER)

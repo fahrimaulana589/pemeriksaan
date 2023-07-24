@@ -16,7 +16,8 @@ class PemeriksaanFactory extends Factory
             'pasien_id' => 1,
             'dokter_id' => 1,
             'keluhan' => "mual",
-            'hari' => Carbon::now()->subDays(rand(1,9))
+            'hari' => Carbon::now()->subDays(rand(1,9)),
+            'status' => fake()->randomElement(['antrian','proses','selesai','batal'])
         ];
     }
 }

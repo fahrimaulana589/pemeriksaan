@@ -14,6 +14,7 @@ class PasienFactory extends Factory
     {
         return [
             'nama' => $this->faker->name(),
+            'user_id' => '2'.$this->faker->numerify('#######'),
             'icon' => UploadedFile::fake()->image('default.jpg')->store('files'),
             'gender' => $this->faker->randomElement(["pria","wanita"]),
             'harlah' => $this->faker->date,

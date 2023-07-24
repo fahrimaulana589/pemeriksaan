@@ -927,7 +927,7 @@ class DokterEditRequestTest extends TestCase
             'permissions' => $roles['dokter'],
         ];
 
-        $idDokter = Role::all()->last()->id;
+        $idDokter = Role::all()->get(1)->id;
 
         $dokter = \Orchid\Platform\Models\User::create($dokter);
         $dokter->replaceRoles([$idDokter]);

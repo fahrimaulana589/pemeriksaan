@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Orchid\Screens;
 
+use App\Models\Pemeriksaan;
 use App\Orchid\Layouts\Pasien\ChartsPasienAlamatLayout;
 use App\Orchid\Layouts\Pasien\ChartsPasienUmurLayout;
 use App\Orchid\Layouts\Pasien\ChartsPasienGenderLayout;
@@ -94,7 +95,7 @@ class PlatformScreen extends Screen
      */
     public function layout(): iterable
     {
-        return [
+        $def = [
             Layout::metrics([
                 'Pasien' => 'metrics.pasien',
                 'Dokter' => 'metrics.dokter',
@@ -113,5 +114,16 @@ class PlatformScreen extends Screen
                 Layout::view('components.list_dokter', ['dokters' => $this->dokter]),
             ])->ratio('60/40'),
         ];
+
+        if(auth()->user()->inRole('pasien')){
+            $def = [
+                Layout::split([
+                    Layout::view('components.list_jadwal_dokter', ['dokter' => $this->dokter]),
+                    Layout::view('components.list_dokter', ['dokters' => $this->dokter]),
+                ])->ratio('60/40'),
+            ];
+        }
+
+        return $def;
     }
 }

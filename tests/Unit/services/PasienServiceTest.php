@@ -9,6 +9,7 @@ use App\Models\Pemeriksaan;
 use App\services\DokterService;
 use App\services\PasienService;
 use App\services\RacikanService;
+use Database\Factories\PasienFactory;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
@@ -21,17 +22,11 @@ class PasienServiceTest extends TestCase
 
     function test_create_pasien_harus_sukses()
     {
+        $data = Pasien::factory()->make()->makeHidden('icon')->toArray();
+
+        Storage::deleteDirectory('');
 
         $file = UploadedFile::fake()->image('avatar.jpg');
-
-        $data = [
-            'nama' => 'fahri',
-            'gender' => 'pria',
-            'harlah' => fake()->date,
-            'desa' => 'Karangmangu',
-            'kecamatan' => 'Tarub',
-            'kabupaten_kota' => 'Kabupaten Tegal'
-        ];
 
         $request = Request::create('/', 'POST', $data, files: [
             'file' => $file,
@@ -44,6 +39,7 @@ class PasienServiceTest extends TestCase
         $service->create($data);
 
         $files = count(Storage::allFiles('files'));
+
         $this->assertTrue($files == 1);
 
         $this->assertDatabaseHas('pasien', $data);
@@ -54,14 +50,11 @@ class PasienServiceTest extends TestCase
         $this->expectException(QueryException::class);
         $this->expectExceptionMessage('Data truncated');
 
-        $data = [
-            'nama' => 'fahri',
-            'gender' => 'bencong',
-            'harlah' => fake()->date,
-            'desa' => 'Karangmangu',
-            'kecamatan' => 'Tarub',
-            'kabupaten_kota' => 'Kabupaten Tegal'
-        ];
+        $data = Pasien::factory()->make([
+            'gender' => 'lala'
+        ])->makeHidden('icon')->toArray();
+
+        Storage::deleteDirectory('');
 
         $file = UploadedFile::fake()->image('avatar.jpg');
 
@@ -79,16 +72,13 @@ class PasienServiceTest extends TestCase
     function test_create_pasien_dengan_harlah_selain_tanggal_harus_gagal()
     {
         $this->expectException(QueryException::class);
-        $this->expectExceptionMessage('Data truncated');
+        $this->expectExceptionMessage('Invalid datetime format');
 
-        $data = [
-            'nama' => 'fahri',
-            'gender' => 'bencong',
-            'harlah' => 's',
-            'desa' => 'Karangmangu',
-            'kecamatan' => 'Tarub',
-            'kabupaten_kota' => 'Kabupaten Tegal'
-        ];
+        $data = Pasien::factory()->make([
+            'harlah' => 'asas'
+        ])->makeHidden('icon')->toArray();
+
+        Storage::deleteDirectory('');
 
         $file = UploadedFile::fake()->image('avatar.jpg');
 
@@ -141,16 +131,10 @@ class PasienServiceTest extends TestCase
     function test_update_data_harus_sukses(){
         $item_1 = Pasien::factory(1)->create()->first();
 
-        $file = UploadedFile::fake()->image('avatar.jpg');
+        $data = Pasien::factory()->make()->makeHidden('icon')->toArray();
+        Storage::deleteDirectory('');
 
-        $data = [
-            'nama' => 'fahri',
-            'gender' => 'pria',
-            'harlah' => fake()->date,
-            'desa' => 'Karangmangu',
-            'kecamatan' => 'Tarub',
-            'kabupaten_kota' => 'Kabupaten Tegal'
-        ];
+        $file = UploadedFile::fake()->image('avatar.jpg');
 
         $request = Request::create('/', 'POST', $data, files: [
             'file' => $file,
@@ -177,16 +161,10 @@ class PasienServiceTest extends TestCase
     function test_update_data_dengan_id_tidak_ada_harus_gagal(){
         $this->expectException(ModelNotFoundException::class);
 
-        $file = UploadedFile::fake()->image('avatar.jpg');
+        $data = Pasien::factory()->make()->makeHidden('icon')->toArray();
+        Storage::deleteDirectory('');
 
-        $data = [
-            'nama' => 'fahri',
-            'gender' => 'pria',
-            'harlah' => fake()->date,
-            'desa' => 'Karangmangu',
-            'kecamatan' => 'Tarub',
-            'kabupaten_kota' => 'Kabupaten Tegal'
-        ];
+        $file = UploadedFile::fake()->image('avatar.jpg');
 
         $request = Request::create('/', 'POST', $data, files: [
             'file' => $file,

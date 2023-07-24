@@ -41,7 +41,7 @@ class PlatformProvider extends OrchidServiceProvider
 
             Menu::make(__(''))
                 ->title(__('Master'))
-                ->permission(['platform.pasien.list','platform.dokter.list','platform.obat.list']),
+                ->permission(['platform.pasien.list', 'platform.dokter.list', 'platform.obat.list']),
 
             Menu::make(__('Pasien'))
                 ->icon('bs.people')
@@ -59,21 +59,43 @@ class PlatformProvider extends OrchidServiceProvider
                 ->permission('platform.obat.list'),
 
             Menu::make(__(''))
-                ->title(__('Pelayanan')),
+                ->title(__('Pelayanan'))
+                ->permission(['platform.jadwal.list', 'platform.pemeriksaan.list']),
 
             Menu::make(__('Jadwal dokter'))
                 ->icon('bs.list-check')
                 ->route('platform.jadwals')
                 ->permission('platform.jadwal.list'),
 
-            Menu::make(__('Pemeriksaan'))
-                ->icon('bs.list-check')
-                ->route('platform.pemeriksaans')
-                ->permission('platform.pemeriksaan.list'),
+            isRole('pasien',
+                Menu::make(__('Pemeriksaan'))
+                    ->icon('bs.list-check')
+                    ->route('platform.pemeriksaans')
+                    ->permission('platform.pemeriksaan.list'),
+                Menu::make(__('Pemeriksaan'))
+                    ->icon('bs.list-check')
+                    ->list([
+                        Menu::make(__('Tambah Pemeriksaan'))
+                            ->route('platform.pemeriksaans.add')
+                            ->permission('platform.pemeriksaan.add'),
+
+                        Menu::make(__('Jadwal Pemeriksaan'))
+                            ->active(['platform.pemeriksaans.jadwal'])
+                            ->route('platform.pemeriksaans.jadwal')
+                            ->permission('platform.pemeriksaan.list'),
+
+                        Menu::make(__('Riwayat Pemeriksaan'))
+                            ->active(['platform.pemeriksaans'])
+                            ->route('platform.pemeriksaans')
+                            ->permission('platform.pemeriksaan.list')
+
+                    ])
+                    ->permission('platform.pemeriksaan.list')
+            ),
 
             Menu::make(__(''))
                 ->title(__('Access Controls'))
-                ->permission(['platform.systems.users','platform.systems.roles']),
+                ->permission(['platform.systems.users', 'platform.systems.roles']),
 
             Menu::make(__('Users'))
                 ->icon('bs.people')
@@ -83,8 +105,7 @@ class PlatformProvider extends OrchidServiceProvider
             Menu::make(__('Roles'))
                 ->icon('bs.lock')
                 ->route('platform.systems.roles')
-                ->permission('platform.systems.roles')
-                ->divider(),
+                ->permission('platform.systems.roles'),
         ];
     }
 

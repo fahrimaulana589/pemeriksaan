@@ -41,6 +41,12 @@ class PemeriksaanListScreen extends Screen
             ];
         }
 
+        if(auth()->user()->inRole('pasien')){
+            $data = [
+                'pemeriksaans' => Pemeriksaan::where('pasien_id','=',auth()->user()->pasien->id)->filters()->defaultSort('id', 'desc')->paginate(),
+            ];
+        }
+
         return $data;
     }
 

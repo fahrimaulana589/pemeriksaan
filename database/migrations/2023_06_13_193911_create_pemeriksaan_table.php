@@ -17,6 +17,7 @@ return new class extends Migration {
 
             $table->text('keluhan');
             $table->date('hari');
+            $table->enum('status',['antrian','proses','selesai','batal']);
 
             $table->timestamps();
         });

@@ -4,11 +4,14 @@ namespace App\Orchid\Screens\Pemeriksaan;
 
 use App\Http\Requests\Pasien\PasienAddRequest;
 use App\Http\Requests\Pemeriksaan\PemeriksaanAddRequest;
+use App\Models\User;
 use App\Orchid\Layouts\Pasien\PasienAddLayout;
 use App\Orchid\Layouts\Pemeriksaan\PemeriksaanAddlayout;
 use App\services\PasienService;
 use App\services\PemeriksaanService;
-use Orchid\Platform\Models\User;
+use Auth;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Orchid\Screen\Actions\Button;
 use Orchid\Screen\Actions\Link;
 use Orchid\Screen\Screen;
@@ -31,6 +34,16 @@ class PemeriksaanAddScreen extends Screen
     public function query(User $user): iterable
     {
         $user->load(['roles']);
+
+        if(isRole('pasien')){
+            $pasien = Auth::user()->pasien;
+            return [
+                'pasien_id' => $pasien->id,
+                'user' => $user,
+                'hari' => Carbon::now(),
+                'permission' => $user->getStatusPermission(),
+            ];
+        }
 
         return [
             'user' => $user,
@@ -90,12 +103,21 @@ class PemeriksaanAddScreen extends Screen
         ];
     }
 
-    function save(PemeriksaanAddRequest $request, PemeriksaanService $service)
+    function save(Request $request,PemeriksaanService $service)
     {
+        if(isRole('pasien')){
+            $pasien = Auth::user()->pasien;
+
+            $request->merge([
+                'pasien_id' => $pasien->id,
+                'hari' => Carbon::now(),
+                'status' => 'antrian'
+            ]);
+        }
+
+        $request = app()->make(PemeriksaanAddRequest::class);
 
         $data = $request->validated();
-
-        request()->request = $request;
 
         $service->create($data);
 

@@ -81,9 +81,20 @@ class User extends Authenticatable
         return $this->hasOne(Dokter::class);
     }
 
+    public function pasien()
+    {
+        return $this->hasOne(Pasien::class,'user_id','id');
+    }
+
     public function scopeDokters($query)
     {
-        $idDokter = Role::all()->last()->id;
+        $idDokter = Role::all()->get(1)->id;
         return $query->join('role_users','users.id','=','role_users.user_id')->where('role_users.role_id','=',$idDokter);
+    }
+
+    public function scopePasiens($query)
+    {
+        $idPasien = Role::all()->last()->id;
+        return $query->join('role_users','users.id','=','role_users.user_id')->where('role_users.role_id','=',$idPasien);
     }
 }

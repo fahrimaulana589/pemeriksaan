@@ -5,6 +5,7 @@ namespace App\Http\Requests\Pemeriksaan;
 use App\Models\Jadwal;
 use App\Models\Pasien;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class PemeriksaanAddRequest extends FormRequest
 {
@@ -31,6 +32,11 @@ class PemeriksaanAddRequest extends FormRequest
                 'required',
                 'date',
                 'after_or_equal:now'
+            ],
+            'status' => [
+                'required',
+                'alpha',
+                Rule::in(['antrian','proses','selesai','batal'])
             ]
         ];
     }

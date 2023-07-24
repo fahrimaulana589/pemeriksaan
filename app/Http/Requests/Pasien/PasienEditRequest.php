@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Pasien;
 
+use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -9,7 +10,20 @@ class PasienEditRequest extends FormRequest
 {
     public function rules(): array
     {
+        $users = User::pasiens()->get();
+
+        $users_ids = $users->map(function ($user){
+            return $user->id;
+        })->flatten();
+
         return [
+            'user_id' => [
+                'numeric',
+                'required',
+                'unique:dokter,user_id,'.$this->getId(),
+                Rule::in($users_ids)
+            ],
+
             'nama' => [
                 'required',
                 'regex:/^[a-zA-Z ]*$/'
@@ -46,5 +60,11 @@ class PasienEditRequest extends FormRequest
     public function authorize(): bool
     {
         return true;
+    }
+
+    public function getId(){
+        $pasien = request()->route()->originalParameter('pasien');
+
+        return $pasien;
     }
 }

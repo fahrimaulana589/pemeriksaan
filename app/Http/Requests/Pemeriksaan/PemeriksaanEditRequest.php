@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Pemeriksaan;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class PemeriksaanEditRequest extends FormRequest
 {
@@ -27,6 +28,11 @@ class PemeriksaanEditRequest extends FormRequest
                 'required',
                 'date',
                 'after_or_equal:now'
+            ],
+            'status' => [
+                'required',
+                'alpha',
+                Rule::in(['antrian','proses','selesai','batal'])
             ]
         ];
     }

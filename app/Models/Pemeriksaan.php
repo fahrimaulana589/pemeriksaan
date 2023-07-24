@@ -23,6 +23,7 @@ class Pemeriksaan extends Model
         'pasien_id',
         'dokter_id',
         'keluhan',
+        'status',
         'hari'
     ];
 

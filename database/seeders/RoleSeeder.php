@@ -13,8 +13,6 @@ class RoleSeeder extends Seeder
      */
     public function run(): void
     {
-        $role = ['Admin', 'Dokter'];
-
         $roles = [
             'admin' => [
                 'platform.index' => 1,
@@ -42,7 +40,7 @@ class RoleSeeder extends Seeder
                 'platform.obat.add' => 1,
                 'platform.obat.edit' => 1,
                 'platform.obat.delete' => 1,
-                'platform.pemeriksaan.list'  => 1,
+                'platform.pemeriksaan.list' => 1,
                 'platform.pemeriksaan.add' => 1,
                 'platform.pemeriksaan.edit' => 1,
                 'platform.pemeriksaan.delete' => 1,
@@ -77,7 +75,7 @@ class RoleSeeder extends Seeder
                 'platform.obat.add' => 0,
                 'platform.obat.edit' => 0,
                 'platform.obat.delete' => 0,
-                'platform.pemeriksaan.list'  => 1,
+                'platform.pemeriksaan.list' => 1,
                 'platform.pemeriksaan.add' => 1,
                 'platform.pemeriksaan.edit' => 1,
                 'platform.pemeriksaan.delete' => 1,
@@ -86,21 +84,63 @@ class RoleSeeder extends Seeder
                 'platform.racikan.edit' => 1,
                 'platform.racikan.delete' => 1,
             ],
+            'pasien' => [
+                'platform.index' => 1,
+                'platform.systems' => 1,
+                'platform.systems.index' => 1,
+                'platform.systems.roles' => 0,
+                'platform.systems.settings' => 1,
+                'platform.systems.users' => 0,
+                'platform.systems.comment' => 1,
+                'platform.systems.attachment' => 1,
+                'platform.systems.media' => 1,
+                'platform.pasien.list' => 0,
+                'platform.pasien.add' => 0,
+                'platform.pasien.edit' => 0,
+                'platform.pasien.delete' => 0,
+                'platform.dokter.list' => 0,
+                'platform.dokter.add' => 0,
+                'platform.dokter.edit' => 0,
+                'platform.dokter.delete' => 0,
+                'platform.jadwal.list' => 1,
+                'platform.jadwal.add' => 0,
+                'platform.jadwal.edit' => 0,
+                'platform.jadwal.delete' => 0,
+                'platform.obat.list' => 0,
+                'platform.obat.add' => 0,
+                'platform.obat.edit' => 0,
+                'platform.obat.delete' => 0,
+                'platform.pemeriksaan.list' => 1,
+                'platform.pemeriksaan.add' => 1,
+                'platform.pemeriksaan.edit' => 0,
+                'platform.pemeriksaan.delete' => 0,
+                'platform.racikan.list' => 0,
+                'platform.racikan.add' => 0,
+                'platform.racikan.edit' => 0,
+                'platform.racikan.delete' => 0,
+            ],
         ];
 
         $admin = [
-            'name'        => 'Admin',
-            'slug'        => 'admin',
+            'name' => 'Admin',
+            'slug' => 'admin',
             'permissions' => $roles['admin'],
         ];
 
         $dokter = [
-            'name'        => 'Dokter',
-            'slug'        => 'dokter',
+            'name' => 'Dokter',
+            'slug' => 'dokter',
             'permissions' => $roles['dokter'],
+        ];
+
+        $pasien = [
+            'name' => 'Pasien',
+            'slug' => 'pasien',
+            'permissions' => $roles['pasien'],
         ];
 
         Role::create($admin);
         Role::create($dokter);
+        Role::create($pasien);
     }
 }

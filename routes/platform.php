@@ -2,18 +2,10 @@
 
 declare(strict_types=1);
 
-use App\Models\Pasien;
+use App\Orchid\Layouts\Pemeriksaan\PemeriksaanJadwalLa;
 use App\Orchid\Screens\Dokter\DokterAddScreen;
 use App\Orchid\Screens\Dokter\DokterEditScreen;
 use App\Orchid\Screens\Dokter\DokterListScreen;
-use App\Orchid\Screens\Examples\ExampleActionsScreen;
-use App\Orchid\Screens\Examples\ExampleCardsScreen;
-use App\Orchid\Screens\Examples\ExampleChartsScreen;
-use App\Orchid\Screens\Examples\ExampleFieldsAdvancedScreen;
-use App\Orchid\Screens\Examples\ExampleFieldsScreen;
-use App\Orchid\Screens\Examples\ExampleLayoutsScreen;
-use App\Orchid\Screens\Examples\ExampleScreen;
-use App\Orchid\Screens\Examples\ExampleTextEditorsScreen;
 use App\Orchid\Screens\Jadwal\JadwalAddScreen;
 use App\Orchid\Screens\Jadwal\JadwalEditScreen;
 use App\Orchid\Screens\Jadwal\JadwalListScreen;
@@ -25,6 +17,7 @@ use App\Orchid\Screens\Pasien\PasienEditScreen;
 use App\Orchid\Screens\Pasien\PasienListScreen;
 use App\Orchid\Screens\Pemeriksaan\PemeriksaanAddScreen;
 use App\Orchid\Screens\Pemeriksaan\PemeriksaanEditScreen;
+use App\Orchid\Screens\Pemeriksaan\PemeriksaanJadwalScreen;
 use App\Orchid\Screens\Pemeriksaan\PemeriksaanListScreen;
 use App\Orchid\Screens\PlatformScreen;
 use App\Orchid\Screens\Racikan\RacikanAddScreen;
@@ -196,6 +189,13 @@ Route::screen('pemeriksaans', PemeriksaanListScreen::class)
     ->breadcrumbs(fn (Trail $trail) => $trail
         ->parent('platform.index')
         ->push(__('Daftar Pemeriksaan'), route('platform.pemeriksaans')));
+
+// Platform > Jadwal Pemeriksaan
+Route::screen('pemeriksaans/jadwal', PemeriksaanJadwalScreen::class)
+    ->name('platform.pemeriksaans.jadwal')
+    ->breadcrumbs(fn (Trail $trail) => $trail
+        ->parent('platform.index')
+        ->push(__('Daftar Pemeriksaan'), route('platform.pemeriksaans.jadwal')));
 
 // Platform > Pemeriksaan > Tambah
 Route::screen('pemeriksaans/add', PemeriksaanAddScreen::class)

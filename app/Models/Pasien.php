@@ -27,11 +27,17 @@ class Pasien extends Model
         'harlah',
         'desa',
         'kecamatan',
+        'user_id',
         'kabupaten_kota'
     ];
 
     public function pemeriksaans (){
         return $this->hasMany(Pemeriksaan::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(\Orchid\Platform\Models\User::class);
     }
 
 }
