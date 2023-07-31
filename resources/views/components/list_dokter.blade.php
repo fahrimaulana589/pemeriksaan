@@ -8,8 +8,7 @@
             @foreach($dokters['jadwal_hari_ini'] as $dokter)
                 <div class="pb-3">
                     <div class="d-flex justify-content-start">
-                        <img src='{{url($dokter['dokter']['icon'])}}' style='width:70px;height:70px;border-radius: 50%;object-fit: cover'>
-                        <div class="ps-3 d-flex flex-fill justify-content-between">
+                       <div class="ps-3 d-flex flex-fill justify-content-between">
                             <div>
                                 {{$dokter['dokter']['nama']}}
                                 <p class="small text-muted mb-0 content-read">

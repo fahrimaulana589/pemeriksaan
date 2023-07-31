@@ -71,13 +71,6 @@ class PasienEditLayout extends Rows
                 ->placeholder(__('Kabupaten / Kota'))
                 ->help(__('Masukan nama kabupaten atau kota tempat tinggal pasien')),
 
-            Input::make('file')
-                ->type('file')
-                ->max(255)
-                ->title(__('Foto'))
-                ->placeholder(__('Foto'))
-                ->help(__('Masukan foto pasien')),
-
         ];
     }
 }

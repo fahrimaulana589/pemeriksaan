@@ -45,13 +45,6 @@ class ObatEditLayout extends Rows
                 ->placeholder(__('Stok'))
                 ->help(__('Masukan stok obat')),
 
-            Input::make('file')
-                ->type('file')
-                ->max(255)
-                ->title(__('Foto'))
-                ->placeholder(__('Foto'))
-                ->help(__('Masukan foto dokter')),
-
         ];
     }
 }

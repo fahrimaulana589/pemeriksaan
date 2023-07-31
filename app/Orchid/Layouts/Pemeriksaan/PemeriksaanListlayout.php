@@ -51,28 +51,23 @@ class PemeriksaanListlayout extends Table
             TD::make(__('Actions'))
                 ->align(TD::ALIGN_CENTER)
                 ->width('100px')
-                ->render(fn(Pemeriksaan $pemeriksaan) => DropDown::make()
-                    ->icon('bs.three-dots-vertical')
-                    ->list([
-                        Link::make(__('Edit'))
-                            ->route('platform.pemeriksaans.edit', $pemeriksaan->id)
-                            ->icon('bs.pencil')
-                            ->hidden(permission('platform.pemeriksaan.edit')),
+                ->render(fn(Pemeriksaan $pemeriksaan) =>  Link::make(__('Edit'))
+                        ->route('platform.pemeriksaans.edit', $pemeriksaan->id)
+                        ->icon('bs.pencil')
+                        ->hidden(permission('platform.pemeriksaan.edit')).
 
-                        Button::make(__('Delete'))
-                            ->icon('bs.trash3')
-                            ->confirm(__('Once the account is deleted, all of its resources and data will be permanently deleted. Before deleting your account, please download any data or information that you wish to retain.'))
-                            ->method('remove', [
-                                'pemeriksaan' => $pemeriksaan->id,
-                            ])
-                            ->hidden(permission('platform.pemeriksaan.delete')),
+                    Button::make(__('Delete'))
+                        ->icon('bs.trash3')
+                        ->confirm(__('Once the account is deleted, all of its resources and data will be permanently deleted. Before deleting your account, please download any data or information that you wish to retain.'))
+                        ->method('remove', [
+                            'pemeriksaan' => $pemeriksaan->id,
+                        ])
+                        ->hidden(permission('platform.pemeriksaan.delete')).
 
-                        Link::make(__('Racikan'))
-                            ->route('platform.racikans', $pemeriksaan->id)
-                            ->icon('bs.plus')
-                            ->hidden(permission('platform.racikan.list')),
-
-                    ])),
+                    Link::make(__('Racikan'))
+                        ->route('platform.racikans', $pemeriksaan->id)
+                        ->icon('bs.plus')
+                        ->hidden(permission('platform.racikan.list'))),
         ];
     }
 }

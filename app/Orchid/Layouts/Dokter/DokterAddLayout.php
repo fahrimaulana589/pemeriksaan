@@ -93,12 +93,6 @@ class DokterAddLayout extends Rows
                 ->placeholder(__('Kabupaten / Kota'))
                 ->help(__('Masukan nama kabupaten atau kota tempat tinggal dokter')),
 
-            Input::make('file')
-                ->type('file')
-                ->max(255)
-                ->title(__('Foto'))
-                ->placeholder(__('Foto'))
-                ->help(__('Masukan foto dokter')),
 
         ];
     }

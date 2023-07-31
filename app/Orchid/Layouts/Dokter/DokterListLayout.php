@@ -33,38 +33,29 @@ class DokterListLayout extends Table
     {
         return [
             TD::make('nama', __('Nama')),
-            TD::make('photo', __('Foto'))
-                ->render(function (Dokter $dokter){
-                    $url = asset($dokter->icon);
-                    return "<img src='{$url}' style='width:70px;height:70px;border-radius: 50%;object-fit: cover'>";
-                }),
             TD::make('pendidikan', __('Pendidikan')),
             TD::make('keahlian', __('Keahlian')),
             TD::make('harlah', __('Tanggal Lahir')),
             TD::make('gender', __('Jenis Kelamin')),
-            TD::make('alamat','Alamat')
-                ->render(function (Dokter $dokter){
+            TD::make('alamat', 'Alamat')
+                ->render(function (Dokter $dokter) {
                     return "Desa {$dokter->desa}, kecamatan {$dokter->kecamatan}, {$dokter->kabupaten_kota}";
                 }),
             TD::make(__('Actions'))
                 ->align(TD::ALIGN_CENTER)
                 ->width('100px')
-                ->render(fn (Dokter $dokter) => DropDown::make()
-                    ->icon('bs.three-dots-vertical')
-                    ->list([
+                ->render(fn(Dokter $dokter) => Link::make(__('Edit'))
+                        ->route('platform.dokters.edit', $dokter->id)
+                        ->icon('bs.pencil')
+                        ->hidden(permission('platform.dokter.edit')) .
 
-                        Link::make(__('Edit'))
-                            ->route('platform.dokters.edit', $dokter->id)
-                            ->icon('bs.pencil')
-                            ->hidden(permission('platform.dokter.edit')),
-
-                        Button::make(__('Delete'))
-                            ->icon('bs.trash3')
-                            ->confirm(__('Once the account is deleted, all of its resources and data will be permanently deleted. Before deleting your account, please download any data or information that you wish to retain.'))
-                            ->method('remove', [
-                                'dokter' => $dokter->id,
-                            ])->hidden(permission('platform.dokter.delete')),
-                    ])),
+                    Button::make(__('Delete'))
+                        ->icon('bs.trash3')
+                        ->confirm(__('Once the account is deleted, all of its resources and data will be permanently deleted. Before deleting your account, please download any data or information that you wish to retain.'))
+                        ->method('remove', [
+                            'dokter' => $dokter->id,
+                        ])->hidden(permission('platform.dokter.delete'))
+                ),
         ];
     }
 }

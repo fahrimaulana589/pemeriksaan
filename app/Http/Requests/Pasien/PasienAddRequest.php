@@ -29,7 +29,6 @@ class PasienAddRequest extends FormRequest
                 'regex:/^[a-zA-Z ]*$/'
             ],
             'file' => [
-                'required',
                 'file',
                 'image',
                 'max:5000'

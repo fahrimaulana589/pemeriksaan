@@ -16,7 +16,6 @@ class ObatAddRequest extends FormRequest
             'file' => [
                 "file",
                 "image",
-                "required",
                 "max:5000"
             ],
             'deskripsi' => [

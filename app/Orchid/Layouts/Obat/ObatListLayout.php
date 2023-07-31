@@ -30,32 +30,23 @@ class ObatListLayout extends Table
     {
         return [
             TD::make('nama', __('Nama')),
-            TD::make('photo', __('Foto'))
-                ->render(function (Obat $obat){
-                    $url = asset($obat->images);
-                    return "<img src='{$url}' style='width:70px;height:70px;border-radius: 50%;object-fit: cover'>";
-                }),
             TD::make('deskripsi', __('Deskripsi')),
             TD::make('stok', __('Stok')),
             TD::make(__('Actions'))
                 ->align(TD::ALIGN_CENTER)
                 ->width('100px')
-                ->render(fn (Obat $obat) => DropDown::make()
-                    ->icon('bs.three-dots-vertical')
-                    ->list([
-                        Link::make(__('Edit'))
-                            ->route('platform.obats.edit', $obat->id)
-                            ->icon('bs.pencil')
-                            ->hidden(permission('platform.obat.edit')),
+                ->render(fn(Obat $obat) => Link::make(__('Edit'))
+                        ->route('platform.obats.edit', $obat->id)
+                        ->icon('bs.pencil')
+                        ->hidden(permission('platform.obat.edit')) .
 
-                        Button::make(__('Delete'))
-                            ->icon('bs.trash3')
-                            ->confirm(__('Once the account is deleted, all of its resources and data will be permanently deleted. Before deleting your account, please download any data or information that you wish to retain.'))
-                            ->method('remove', [
-                                'obat' => $obat->id,
-                            ])
-                            ->hidden(permission('platform.obat.delete')),
-                    ])),
+                    Button::make(__('Delete'))
+                        ->icon('bs.trash3')
+                        ->confirm(__('Once the account is deleted, all of its resources and data will be permanently deleted. Before deleting your account, please download any data or information that you wish to retain.'))
+                        ->method('remove', [
+                            'obat' => $obat->id,
+                        ])
+                        ->hidden(permission('platform.obat.delete'))),
         ];
     }
 }

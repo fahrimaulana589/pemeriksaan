@@ -34,28 +34,23 @@ class JadwalListlayout extends Table
     {
         return [
             TD::make('nama', __('Nama'))->render(fn(Jadwal $jadwal) => $jadwal->dokter->nama),
-            TD::make('hari', __('Jadwal'))->render(function(Jadwal $jadwal) {
-                return view('components.list_jadwal',compact('jadwal'));
+            TD::make('hari', __('Jadwal'))->render(function (Jadwal $jadwal) {
+                return view('components.list_jadwal', compact('jadwal'));
             }),
             TD::make(__('Actions'))
                 ->align(TD::ALIGN_CENTER)
                 ->width('100px')
-                ->render(fn (Jadwal $jadwal) => DropDown::make()
-                    ->icon('bs.three-dots-vertical')
-                    ->list([
-                        Link::make(__('Edit'))
-                            ->route('platform.jadwals.edit', $jadwal->id)
-                            ->icon('bs.pencil')
-                            ->hidden(permission('platform.jadwal.edit')),
-
-                        Button::make(__('Delete'))
-                            ->icon('bs.trash3')
-                            ->confirm(__('Once the account is deleted, all of its resources and data will be permanently deleted. Before deleting your account, please download any data or information that you wish to retain.'))
-                            ->method('remove', [
-                                'jadwal' => $jadwal->id,
-                            ])
-                            ->hidden(permission('platform.jadwal.delete')),
-                    ])),
+                ->render(fn(Jadwal $jadwal) => Link::make(__('Edit'))
+                        ->route('platform.jadwals.edit', $jadwal->id)
+                        ->icon('bs.pencil')
+                        ->hidden(permission('platform.jadwal.edit')) .
+                    Button::make(__('Delete'))
+                        ->icon('bs.trash3')
+                        ->confirm(__('Once the account is deleted, all of its resources and data will be permanently deleted. Before deleting your account, please download any data or information that you wish to retain.'))
+                        ->method('remove', [
+                            'jadwal' => $jadwal->id,
+                        ])
+                        ->hidden(permission('platform.jadwal.delete'))),
         ];
     }
 }

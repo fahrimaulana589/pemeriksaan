@@ -40,22 +40,18 @@ class RacikanListLayout extends Table
             TD::make(__('Actions'))
                 ->align(TD::ALIGN_CENTER)
                 ->width('100px')
-                ->render(fn(Racikan $racikan) => DropDown::make()
-                    ->icon('bs.three-dots-vertical')
-                    ->list([
-                        Link::make(__('Edit'))
-                            ->route('platform.racikans.edit',[$this->query['pemeriksaan']->id,$racikan->id])
-                            ->icon('bs.pencil')
-                            ->hidden(permission('platform.racikan.edit')),
+                ->render(fn(Racikan $racikan) =>  Link::make(__('Edit'))
+                        ->route('platform.racikans.edit',[$this->query['pemeriksaan']->id,$racikan->id])
+                        ->icon('bs.pencil')
+                        ->hidden(permission('platform.racikan.edit')).
 
-                        Button::make(__('Delete'))
-                            ->icon('bs.trash3')
-                            ->confirm(__('Once the account is deleted, all of its resources and data will be permanently deleted. Before deleting your account, please download any data or information that you wish to retain.'))
-                            ->method('remove', [
-                                'racikan' => $racikan->id,
-                            ])
-                            ->hidden(permission('platform.racikan.delete')),
-                    ])),
+                    Button::make(__('Delete'))
+                        ->icon('bs.trash3')
+                        ->confirm(__('Once the account is deleted, all of its resources and data will be permanently deleted. Before deleting your account, please download any data or information that you wish to retain.'))
+                        ->method('remove', [
+                            'racikan' => $racikan->id,
+                        ])
+                        ->hidden(permission('platform.racikan.delete'))),
         ];
     }
 }
