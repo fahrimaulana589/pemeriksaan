@@ -33,11 +33,6 @@ class PasienList2Layout extends Table
     {
         return [
             TD::make('nama', __('Nama')),
-            TD::make('photo', __('Foto'))
-                ->render(function (Pasien $pasien){
-                    $url = asset($pasien->icon);
-                    return "<img src='{$url}' style='width:70px;height:70px;border-radius: 50%;object-fit: cover'>";
-                }),
             TD::make('harlah', __('Tanggal Lahir')),
             TD::make('gender', __('Jenis Kelamin')),
             TD::make('alamat','Alamat')

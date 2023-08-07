@@ -58,8 +58,7 @@ class PemeriksaanAddlayout extends Rows
             DateTimer::make('hari')
                 ->title('Hari')
                 ->allowInput()
-                ->format('Y-m-d')
-                ->disabled(isRole('pasien')),
+                ->format('Y-m-d'),
 
         ];
     }

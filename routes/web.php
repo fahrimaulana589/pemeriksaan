@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Pemeriksaan;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,3 +18,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return to_route('platform.main');
 });
+
+Route::get('admin/pemeriksaans/{pemeriksaan}/print',function (Pemeriksaan $pemeriksaan){
+    $pdf = Pdf::loadView('pdf.invoice',['pemeriksaan'=>$pemeriksaan]);
+    return $pdf->setPaper('a4')->download('invoice.pdf');
+})->name('platform.pemeriksaans.print');

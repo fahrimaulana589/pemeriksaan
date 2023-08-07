@@ -105,6 +105,13 @@ Route::screen('pasiens', PasienListScreen::class)
         ->parent('platform.index')
         ->push(__('Daftar Pasien'), route('platform.pasiens')));
 
+// Platform > Pasien
+Route::screen('pasiens/pemeriksaan/{pasien}', PemeriksaanListScreen::class)
+    ->name('platform.pasiens.pemeriksaan')
+    ->breadcrumbs(fn (Trail $trail,$pasien) => $trail
+        ->parent('platform.index')
+        ->push(__('Daftar Pasien'), route('platform.pasiens.pemeriksaan',$pasien)));
+
 // Platform > Pasien > Tambah
 Route::screen('pasiens/add', PasienAddScreen::class)
     ->name('platform.pasiens.add')

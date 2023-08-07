@@ -48,6 +48,12 @@ class PemeriksaanListlayout extends Table
 
             TD::make('hari', __('Hari Pemeriksaan')),
 
+            TD::make('Struk', __('Hari Pemeriksaan'))->render(function (Pemeriksaan $pemeriksaan){
+                return Link::make(__('Print'))
+                        ->icon('bi.printer')
+                        ->route('platform.pemeriksaans.print',[$pemeriksaan->id]);
+            }),
+
             TD::make(__('Actions'))
                 ->align(TD::ALIGN_CENTER)
                 ->width('100px')

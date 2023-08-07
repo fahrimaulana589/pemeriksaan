@@ -20,7 +20,7 @@ class PasienAddRequest extends FormRequest
             'user_id' => [
                 'numeric',
                 'required',
-                'unique:dokter,user_id',
+                'unique:pasien,user_id',
                 Rule::in($users_ids)
             ],
 

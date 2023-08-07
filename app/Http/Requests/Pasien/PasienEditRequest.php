@@ -20,7 +20,7 @@ class PasienEditRequest extends FormRequest
             'user_id' => [
                 'numeric',
                 'required',
-                'unique:dokter,user_id,'.$this->getId(),
+                'unique:pasien,user_id,'.$this->getId(),
                 Rule::in($users_ids)
             ],
 

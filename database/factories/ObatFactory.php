@@ -17,6 +17,7 @@ class ObatFactory extends Factory
             'images' => UploadedFile::fake()->image('default.jpg')->store('files'),
             'deskripsi' => "dsssss shs shssgsshsss",
             'stok' => 12,
+            'harga' => 12,
         ];
     }
 }

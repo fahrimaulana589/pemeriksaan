@@ -48,6 +48,13 @@ class ObatAddLayout extends Rows
                 ->placeholder(__('Stok'))
                 ->help(__('Masukan stok obat')),
 
+            Input::make('harga')
+                ->type('number')
+                ->max(255)
+                ->title(__('Harga'))
+                ->placeholder(__('Harga'))
+                ->help(__('Masukan harga obat')),
+
         ];
     }
 }

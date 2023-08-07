@@ -2,15 +2,12 @@
 
 namespace App\Orchid\Screens\Pemeriksaan;
 
-use App\Http\Requests\Pasien\PasienDeleteRequest;
 use App\Http\Requests\Pemeriksaan\PemeriksaanDeleteRequest;
-use App\Models\Jadwal;
-use App\Models\Pasien;
 use App\Models\Pemeriksaan;
-use App\Orchid\Layouts\Pasien\PasienListLayout;
 use App\Orchid\Layouts\Pemeriksaan\PemeriksaanListlayout;
-use App\services\PasienService;
 use App\services\PemeriksaanService;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\App;
 use Orchid\Screen\Actions\Link;
 use Orchid\Screen\Screen;
 use Orchid\Support\Color;
@@ -29,21 +26,29 @@ class PemeriksaanListScreen extends Screen
             'pemeriksaans' => Pemeriksaan::filters()->defaultSort('id', 'desc')->paginate(),
         ];
 
-        if(auth()->user()->inRole('admin')){
+        if (auth()->user()->inRole('admin')) {
             $data = [
                 'pemeriksaans' => Pemeriksaan::filters()->defaultSort('id', 'desc')->paginate(),
             ];
+            if (request()->route('pasien') != null) {
+                $data = [
+                    'pemeriksaans' => Pemeriksaan::where('pasien_id', '=',
+                        request()->route('pasien'))->filters()->defaultSort('id', 'desc')->paginate(),
+                ];
+            }
         }
 
-        if(auth()->user()->inRole('dokter')){
+        if (auth()->user()->inRole('dokter')) {
             $data = [
-                'pemeriksaans' => Pemeriksaan::where('dokter_id','=',auth()->user()->dokter->id)->filters()->defaultSort('id', 'desc')->paginate(),
+                'pemeriksaans' => Pemeriksaan::where('dokter_id', '=',
+                    auth()->user()->dokter->id)->filters()->defaultSort('id', 'desc')->paginate(),
             ];
         }
 
-        if(auth()->user()->inRole('pasien')){
+        if (auth()->user()->inRole('pasien')) {
             $data = [
-                'pemeriksaans' => Pemeriksaan::where('pasien_id','=',auth()->user()->pasien->id)->filters()->defaultSort('id', 'desc')->paginate(),
+                'pemeriksaans' => Pemeriksaan::where('pasien_id', '=',
+                    auth()->user()->pasien->id)->filters()->defaultSort('id', 'desc')->paginate(),
             ];
         }
 
@@ -80,14 +85,19 @@ class PemeriksaanListScreen extends Screen
      */
     public function commandBar(): iterable
     {
-        return [
+        if (request()->route('pasien') != null) {
+            $data[] = Link::make('Kembali')
+                ->icon('bs.arrow-left')
+                ->type(Color::BASIC)
+                ->route('platform.pasiens');
+        }
+        $data[] =
             Link::make('Tambah')
                 ->type(Color::BASIC)
                 ->icon('bs.plus')
                 ->route('platform.pemeriksaans.add')
-                ->hidden(permission('platform.pemeriksaan.add'))
-
-        ];
+                ->hidden(permission('platform.pemeriksaan.add'));
+        return $data;
     }
 
     /**

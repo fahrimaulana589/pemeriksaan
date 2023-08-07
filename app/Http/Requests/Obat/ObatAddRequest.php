@@ -27,6 +27,11 @@ class ObatAddRequest extends FormRequest
                 'required',
                 'min:1'
             ],
+            'harga' => [
+                'integer',
+                'required',
+                'min:1'
+            ],
         ];
     }
 

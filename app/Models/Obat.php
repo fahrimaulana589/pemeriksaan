@@ -25,6 +25,7 @@ class Obat extends Model
         'images',
         'deskripsi',
         'stok',
+        'harga',
     ];
 
     public function racikans()

@@ -13,7 +13,8 @@ return new class extends Migration {
             $table->string('nama',50);
             $table->string('images',255)->unique();
             $table->text('deskripsi');
-            $table->integer('stok',);
+            $table->integer('stok');
+            $table->integer('harga');
 
             $table->timestamps();
         });

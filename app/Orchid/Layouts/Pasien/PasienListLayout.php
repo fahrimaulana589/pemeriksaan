@@ -53,7 +53,11 @@ class PasienListLayout extends Table
                         ->method('remove', [
                             'pasien' => $pasien->id,
                         ])
-                        ->hidden(permission('platform.pasien.delete'))),
+                        ->hidden(permission('platform.pasien.delete')).
+                    Link::make(__('Pemeriksaan'))
+                        ->route('platform.pasiens.pemeriksaan', $pasien->id)
+                        ->icon('bs.list-check')
+                        ->hidden(permission('platform.pasien.list'))),
         ];
     }
 }

@@ -110,7 +110,7 @@ class PlatformProvider extends OrchidServiceProvider
                         ->icon('')
                         ->route('platform.pelaporan.pemeriksaan.pertahun')
                         ->permission('platform.pelaporan.pemeriksaan'),
-                ]),
+                ])->permission('platform.pelaporan.pemeriksaan'),
 
             Menu::make(__(''))
                 ->title(__('Access Controls'))

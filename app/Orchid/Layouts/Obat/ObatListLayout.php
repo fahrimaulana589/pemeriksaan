@@ -31,6 +31,7 @@ class ObatListLayout extends Table
         return [
             TD::make('nama', __('Nama')),
             TD::make('deskripsi', __('Deskripsi')),
+            TD::make('harga', __('Harga')),
             TD::make('stok', __('Stok')),
             TD::make(__('Actions'))
                 ->align(TD::ALIGN_CENTER)
@@ -39,7 +40,6 @@ class ObatListLayout extends Table
                         ->route('platform.obats.edit', $obat->id)
                         ->icon('bs.pencil')
                         ->hidden(permission('platform.obat.edit')) .
-
                     Button::make(__('Delete'))
                         ->icon('bs.trash3')
                         ->confirm(__('Once the account is deleted, all of its resources and data will be permanently deleted. Before deleting your account, please download any data or information that you wish to retain.'))
