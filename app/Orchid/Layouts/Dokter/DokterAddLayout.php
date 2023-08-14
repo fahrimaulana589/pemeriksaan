@@ -34,6 +34,13 @@ class DokterAddLayout extends Rows
                 ->title('Pilih User')
                 ->help("Silahkan pilih user"),
 
+            Input::make('jumlah')
+                ->type('text')
+                ->max(255)
+                ->title(__('Jumlah Pemeriksaan'))
+                ->placeholder(__('Jumlah'))
+                ->help(__('Masukan nama maksimal pemeriksaan dokter dalam sehari')),
+
             Input::make('nama')
                 ->type('text')
                 ->max(255)

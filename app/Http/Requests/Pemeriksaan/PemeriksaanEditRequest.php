@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Pemeriksaan;
 
+use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -27,7 +28,7 @@ class PemeriksaanEditRequest extends FormRequest
             'hari' =>[
                 'required',
                 'date',
-                'after_or_equal:now'
+                'after_or_equal:'.Carbon::now()->toDateString()
             ],
             'status' => [
                 'required',

@@ -13,7 +13,7 @@ class DokterAddRequest extends FormRequest
     {
         $users = User::dokters()->get();
 
-        $users_ids = $users->map(function ($user){
+        $users_ids = $users->map(function ($user) {
             return $user->id;
         })->flatten();
 
@@ -26,6 +26,12 @@ class DokterAddRequest extends FormRequest
                 Rule::in($users_ids)
             ],
 
+            'jumlah' => [
+                'integer',
+                'required',
+                'min:1'
+            ],
+
             'nama' => [
                 'required',
                 'regex:/^[a-zA-Z ]*$/'
@@ -35,11 +41,11 @@ class DokterAddRequest extends FormRequest
                 'image',
                 'max:5000'
             ],
-            'gender'=>[
+            'gender' => [
                 'required',
-                Rule::in(['pria','wanita'])
+                Rule::in(['pria', 'wanita'])
             ],
-            'harlah'=> [
+            'harlah' => [
                 'required',
                 'date',
                 'before_or_equal:now'

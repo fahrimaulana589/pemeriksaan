@@ -33,6 +33,7 @@ class DokterListLayout extends Table
     {
         return [
             TD::make('nama', __('Nama')),
+            TD::make('jumlah', __('maksimal pemeriksaan')),
             TD::make('pendidikan', __('Pendidikan')),
             TD::make('keahlian', __('Keahlian')),
             TD::make('harlah', __('Tanggal Lahir')),

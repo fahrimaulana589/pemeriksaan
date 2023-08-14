@@ -4,17 +4,21 @@ namespace App\Orchid\Screens;
 
 use App\Http\Requests\PelaporanFilterHariRequest;
 use App\Models\Obat;
+use App\Models\Pasien;
 use App\Models\Pemeriksaan;
 use App\Orchid\Layouts\Jadwal\JadwalEditlayout;
 use App\Orchid\Layouts\Pasien\PasienList2Layout;
+use App\Orchid\Layouts\Pasien\PasienList3Layout;
 use App\Orchid\Layouts\Pemeriksaan\PemeriksaanList2layout;
 use App\Orchid\Layouts\Pemeriksaan\PemeriksaanListlayout;
 use App\Orchid\Layouts\PemeriksaanChart;
 use App\Orchid\Layouts\PemeriksaanTanggal;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Validator;
 use Orchid\Screen\Actions\Button;
+use Orchid\Screen\Actions\Link;
 use Orchid\Screen\Screen;
 use Orchid\Support\Color;
 use Orchid\Support\Facades\Layout;
@@ -23,6 +27,8 @@ use Orchid\Support\Facades\Toast;
 class PelaporanPemeriksaanScreen extends Screen
 {
     var $day;
+    var $first;
+    var $last;
 
     /**
      * Fetch data to be displayed on the screen.
@@ -57,9 +63,22 @@ class PelaporanPemeriksaanScreen extends Screen
         $pemeriksaans = Pemeriksaan::whereBetween('hari', [$first, $last])->orderBy('hari')->get();
 
         $data = $pemeriksaans->groupBy('pasien_id');
-        $pasiens = $data->map(function ($item){
+        $datakeluhan = $pemeriksaans->groupBy('keluhan');
+
+        $pasiens = $data->map(function ($item) {
             $item[0]->pasien->total = $item->count();
             return $item[0]->pasien;
+        });
+
+        $keluhans = $datakeluhan->map(function (Collection $item, $key) {
+            $pasiens = $item->map(function ($item) {
+                return $item->pasien->nama;
+            })->toArray();
+            return [
+                'keluhan' => $key,
+                'jumlah' => $item->count(),
+                'pasiens' => $pasiens
+            ];
         });
 
         $days = [];
@@ -83,12 +102,16 @@ class PelaporanPemeriksaanScreen extends Screen
 
         $this->day = $count;
 
+        $this->first = $first->toDateString();
+        $this->last = $last->toDateString();
+
         return [
             'dataset' => $dataset,
             'first' => $first->toDateString(),
             'last' => $last->toDateString(),
             'pemeriksaans' => $pemeriksaans,
-            'pasiens' => $pasiens
+            'pasiens' => $pasiens,
+            'keluhans' => $keluhans
         ];
 
     }
@@ -111,7 +134,8 @@ class PelaporanPemeriksaanScreen extends Screen
     public function commandBar(): iterable
     {
         return [
-
+            Link::make('print')
+                ->route('platform.pelaporan.print.harian',['first'=>$this->first,'last'=>$this->last])
         ];
     }
 
@@ -135,6 +159,7 @@ class PelaporanPemeriksaanScreen extends Screen
             PemeriksaanChart::make('dataset', 'Pemeriksaan Dalam ' . $this->day . ' hari terakhir'),
             PemeriksaanList2layout::class,
             PasienList2Layout::class,
+            PasienList3Layout::class,
         ];
     }
 

@@ -24,7 +24,11 @@ class DokterEditRequest extends FormRequest
                 'unique:dokter,user_id,'.$this->getId(),
                 Rule::in($users_ids)
             ],
-
+            'jumlah' => [
+                'integer',
+                'required',
+                'min:1'
+            ],
             'nama' => [
                 'required',
                 'regex:/^[a-zA-Z ]*$/'

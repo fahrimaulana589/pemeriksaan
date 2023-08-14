@@ -22,7 +22,8 @@ class   DokterFactory extends Factory
             'kecamatan' => "Tarub",
             'kabupaten_kota' => "Kabupaten Tegal",
             'pendidikan' => "SMA",
-            'keahlian' => 'dokter bedah'
+            'keahlian' => 'dokter bedah',
+            'jumlah' => 12
         ];
     }
 }

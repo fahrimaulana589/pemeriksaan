@@ -20,8 +20,9 @@ class JadwalEditRequest extends FormRequest
 
         $jadwal = request()->route()->originalParameter('jadwal');
 
+
         $jadwal = Jadwal::find($jadwal);
-        $jadwal = ($jadwal == null) ? null : $jadwal;
+        $jadwal = ($jadwal == null) ? null : $jadwal->id;
 
         return [
             'dokter_id' => [

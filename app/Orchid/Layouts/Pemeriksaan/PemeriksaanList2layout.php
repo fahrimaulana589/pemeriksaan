@@ -44,7 +44,7 @@ class PemeriksaanList2layout extends Table
 
             TD::make('keluhan', __('Keluhan')),
 
-            TD::make('status', __('Pasien')),
+            TD::make('status', __('Status')),
 
             TD::make('hari', __('Hari Pemeriksaan')),
         ];

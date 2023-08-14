@@ -27,7 +27,7 @@ class PemeriksaanAddRequest extends FormRequest
                 ->where('dokter_id','=',$this->request->get('dokter_id'))
                 ->whereIn('status',['antrian','proses','selesai'])->get();
 
-            $this->fail($pemeriksaans->count()+1 > 10,'Dokter Sudah Penuh');
+            $this->fail($pemeriksaans->count()+1 > $dokter->jumlah,'Dokter Sudah Penuh');
         }
 
         return [
@@ -48,7 +48,7 @@ class PemeriksaanAddRequest extends FormRequest
             'hari' => [
                 'required',
                 'date',
-                'after_or_equal:now'
+                'after_or_equal:'.Carbon::now()->toDateString(),
             ],
             'status' => [
                 'required',

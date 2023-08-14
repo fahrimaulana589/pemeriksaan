@@ -25,7 +25,8 @@ class Dokter extends Model
         'kecamatan',
         'kabupaten_kota',
         'pendidikan',
-        'keahlian'
+        'keahlian',
+        'jumlah'
     ];
 
     public function jadwals()
