@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "634d2c6e6595367970970d234040a2ce",
+    "content-hash": "4db8fbe867d773b756a67c124c0e1429",
     "packages": [
         {
             "name": "barryvdh/laravel-dompdf",
@@ -2594,17 +2594,11 @@
         },
         {
             "name": "orchid/platform",
-            "version": "14.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/orchidsoftware/platform.git",
-                "reference": "a9ee46e330aa687458c63c6b7e9fcdd7660438fd"
-            },
+            "version": "dev-master",
             "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/orchidsoftware/platform/zipball/a9ee46e330aa687458c63c6b7e9fcdd7660438fd",
-                "reference": "a9ee46e330aa687458c63c6b7e9fcdd7660438fd",
-                "shasum": ""
+                "type": "path",
+                "url": "./packages/orchid/platform",
+                "reference": "be2adf33e1e310dea2a9fef26646fe5f272dce3b"
             },
             "require": {
                 "ext-json": "*",
@@ -2646,21 +2640,28 @@
                 }
             },
             "autoload": {
-                "files": [
-                    "src/Support/helpers.php"
-                ],
                 "psr-4": {
-                    "Orchid\\Alert\\": "src/Alert/",
                     "Orchid\\Access\\": "src/Access/",
-                    "Orchid\\Screen\\": "src/Screen/",
+                    "Orchid\\Alert\\": "src/Alert/",
+                    "Orchid\\Attachment\\": "src/Attachment/",
                     "Orchid\\Filters\\": "src/Filters/",
                     "Orchid\\Metrics\\": "src/Metrics/",
-                    "Orchid\\Support\\": "src/Support/",
                     "Orchid\\Platform\\": "src/Platform/",
-                    "Orchid\\Attachment\\": "src/Attachment/"
+                    "Orchid\\Screen\\": "src/Screen/",
+                    "Orchid\\Support\\": "src/Support/"
+                },
+                "files": [
+                    "src/Support/helpers.php"
+                ]
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Orchid\\Platform\\Database\\Factories\\": "database/factories/",
+                    "Orchid\\Platform\\Database\\Seeders\\": "database/seeders/",
+                    "Orchid\\Tests\\": "tests/",
+                    "App\\": "stubs/app/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -2686,18 +2687,21 @@
                 "rad"
             ],
             "support": {
-                "docs": "https://orchid.software/en/docs",
-                "email": "bliz48rus@gmail.com",
                 "issues": "https://github.com/orchidsoftware/platform/issues",
-                "source": "https://github.com/orchidsoftware/platform"
+                "source": "https://github.com/orchidsoftware/platform",
+                "docs": "https://orchid.software/en/docs",
+                "email": "bliz48rus@gmail.com"
             },
             "funding": [
                 {
-                    "url": "https://opencollective.com/orchid",
-                    "type": "opencollective"
+                    "type": "opencollective",
+                    "url": "https://opencollective.com/orchid"
                 }
             ],
-            "time": "2023-05-21T23:02:13+00:00"
+            "transport-options": {
+                "symlink": true,
+                "relative": true
+            }
         },
         {
             "name": "phenx/php-font-lib",
@@ -9637,7 +9641,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "orchid/platform": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {

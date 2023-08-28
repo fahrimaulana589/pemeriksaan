@@ -11,8 +11,17 @@
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.2",
         "laravel/tinker": "^2.8",
-        "orchid/platform": "^14.0"
+        "orchid/platform": "dev-master"
     },
+    "repositories": [
+        {
+            "type": "path",
+            "url": "./packages/orchid/platform",
+            "options": {
+                "symlink": true
+            }
+        }
+    ],
     "require-dev": {
         "fakerphp/faker": "^1.9.1",
         "laravel-lang/common": "*",
